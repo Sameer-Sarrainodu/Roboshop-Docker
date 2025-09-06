@@ -1,4 +1,4 @@
-FROM node:20
+FROM node:20-apline
 RUN useradd --system --home /app --shell /sbin/nologin --comment "roboshop system user" roboshop
 RUN mkdir -p /opt/server
 WORKDIR /opt/server
