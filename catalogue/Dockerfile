@@ -20,7 +20,7 @@
 
 
 FROM node:20-alpine3.21 
-FROM node:20
+# FROM node:20
 RUN groupadd -r roboshop && \
     useradd -r -g roboshop -d /opt/server -s /usr/sbin/nologin roboshop
 RUN mkdir -p /opt/server && chown -R roboshop:roboshop /opt/server
