@@ -7,7 +7,14 @@
 # RUN npm install
 
 # FROM node:20-alpine3.21
-# RUN 
+# RUN addgroup -S roboshop && \
+#     adduser -S -D -H -h /opt/server -s /sbin/nologin -G roboshop roboshop
+# ENV MONGO=true \
+#     MONGO_URL=mongodb://mongodb:27017/catalogue
+# WORKDIR /opt/server
+# USER roboshop
+# COPY --from=builder /opt/server /opt/server
+# CMD [ "node","server.js" ]
 
 
 
@@ -19,7 +26,7 @@
 FROM node:20-alpine3.21 
 RUN addgroup -S roboshop && \
     adduser -S -D -H -h /opt/server -s /sbin/nologin -G roboshop roboshop
-RUN mkdir -p /opt/server && chown -R roboshop:roboshop /opt/server
+# RUN mkdir -p /opt/server && chown -R roboshop:roboshop /opt/server
 WORKDIR /opt/server
 COPY package.json . 
 COPY server.js .
@@ -38,7 +45,6 @@ CMD [ "node", "server.js" ]
 # FROM node:20
 # RUN groupadd -r roboshop && \
 #     useradd -r -g roboshop -d /opt/server -s /usr/sbin/nologin roboshop
-# RUN mkdir -p /opt/server && chown -R roboshop:roboshop /opt/server
 # WORKDIR /opt/server
 # COPY package.json . 
 # COPY server.js .
