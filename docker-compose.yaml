@@ -4,10 +4,10 @@ networks:
     driver: bridge
     # external: true
 volumes:
-  mongodb: {}
-  redis: {}
-  mysql: {}
-  rabbitmq: {}
+  mongodb:
+  redis: 
+  mysql:
+  rabbitmq:
 services:
   mongodb:
     image: sameershaikdevops/mongodb:v1
