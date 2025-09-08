@@ -13,41 +13,41 @@ services:
     image: sameershaikdevops/mongodb:v1
     container_name: mongodb 
     volumes:
-    - mongodb: /data/db
+      - mongodb:/data/db
 
   catalogue:
     image: sameershaikdevops/catalogue:v1
     container_name: catalogue
     depends_on:
-    - mongodb
+      - mongodb
   redis:
     image: redis:7.0
     container_name: redis
     volumes:
-    - redis: /data
+      - redis:/data
   user:
     image: sameershaikdevops/user:v1
     container_name: user
     depends_on:
-    - redis
-    - mongodb
+      - redis
+      - mongodb
   cart:
     image: sameershaikdevops/cart:v1
     container_name: cart
     depends_on:
-    - catalogue
-    - redis
+      - catalogue
+      - redis
   mysql:
     image: sameershaikdevops/mysql:v1
     container_name: mysql
     volumes:
-    - mysql: /var/lib/mysql
+      - mysql:/var/lib/mysql
   shipping:
     image: sameershaikdevops/shipping:v1
     container_name: shipping
     depends_on:
-    - mysql
-    - cart
+      - mysql
+      - cart
   rabbitmq:
     image: rabbitmq:3
     container_name: rabbitmq
@@ -55,7 +55,7 @@ services:
       RABBITMQ_DEFAULT_USER: "roboshop"
       RABBITMQ_DEFAULT_PASS: "roboshop123"
     volumes:
-    - rabbitmq: /var/lib/rabbitmq
+      - rabbitmq:/var/lib/rabbitmq
   payment:
     image: sameershaikdevops/payment:v1 
     container_name: payment
@@ -68,20 +68,20 @@ services:
       AMQP_USER: "roboshop"
       AMQP_PASS: "roboshop123"
     depends_on:
-    - rabbitmq
-    - cart
-    - user
+      - rabbitmq
+      - cart
+      - user
   frontend:
     image: sameershaikdevops/frontend:v1
     container_name: frontend
     ports:
-    - "80:80"
+      - "80:80"
     depends_on:
-    - catalogue 
-    - user
-    - cart
-    - shipping
-    - payment
+      - catalogue 
+      - user
+      - cart
+      - shipping
+      - payment
 
 
 
