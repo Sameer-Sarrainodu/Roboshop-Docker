@@ -1,6 +1,8 @@
 FROM node:20-alpine3.21
-RUN useradd --system --home /app --shell /sbin/nologin --comment "roboshop system user" roboshop
-RUN mkdir -p /opt/server
+RUN addgroup -S roboshop && \
+    adduser -S -h /opt/server -s /sbin/nologin -G roboshop roboshop
+
+RUN mkdir -p /opt/server && chown -R roboshop:roboshop /opt/server
 WORKDIR /opt/server
 COPY package.json . 
 COPY server.js .
