@@ -1,7 +1,6 @@
 FROM node:20
-RUN addgroup -S roboshop && \
-    adduser -S -h /opt/server -s /sbin/nologin -G roboshop roboshop
-
+RUN groupadd -r roboshop && \
+    useradd -r -g roboshop -d /opt/server -s /usr/sbin/nologin roboshop
 RUN mkdir -p /opt/server && chown -R roboshop:roboshop /opt/server
 WORKDIR /opt/server
 COPY package.json . 
