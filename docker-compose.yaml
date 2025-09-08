@@ -2,7 +2,7 @@ networks:
   default:
     name: roboshop
     driver: bridge
-    external: true
+    # external: true
 services:
   mongodb:
     image: sameershaikdevops/mongodb:v1
