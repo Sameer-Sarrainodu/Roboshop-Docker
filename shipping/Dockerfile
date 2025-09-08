@@ -1,5 +1,5 @@
 # optimized method
-FROM maven AS builder
+FROM maven:3.9.2-eclipse-temurin-17 AS builder
 WORKDIR /opt/server
 COPY pom.xml . 
 RUN mvn dependency:go-offline
