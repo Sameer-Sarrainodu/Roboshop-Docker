@@ -1,34 +1,39 @@
 #optimized method
 FROM nginxinc/nginx-unprivileged:1.23.1-alpine
 
-# Remove default content
-# RUN rm -rf /usr/share/nginx/html/* /etc/nginx/nginx.conf /etc/nginx/conf.d/default.conf
-
-# Add your custom configuration and static files
+# add your custom configuration and static files
 COPY nginx.conf /etc/nginx/nginx.conf
 COPY static /usr/share/nginx/html/
 
-# Expose the necessary port
-EXPOSE 80
+# expose the correct port for unprivileged NGINX
+EXPOSE 8080
 
-# Command to run NGINX in the foreground
+# run nginx in the foreground
 CMD ["nginx", "-g", "daemon off;"]
 
-# FROM nginx:1.29.0-alpine
-# RUN rm /etc/nginx/nginx.conf /etc/nginx/conf.d/default.conf
-# RUN rm -rf /usr/share/nginx/html/*
-# RUN rm -rf /etc/nginx/nginx.conf
-# RUN rm -rf /etc/nginx/conf.d/default.conf
 
+# FROM nginx:1.29.0-alpine
+
+# # Clean default configs and prepare directories
+# RUN rm -f /etc/nginx/nginx.conf /etc/nginx/conf.d/default.conf && \
+#     mkdir -p /var/cache/nginx/{client_temp,proxy_temp,fastcgi_temp,uwsgi_temp,scgi_temp} && \
+#     chown -R nginx:nginx /var/cache/nginx /etc/nginx /var/log/nginx && \
+#     chmod -R 755 /etc/nginx && \
+#     mkdir -p /etc/nginx/ssl && \
+#     chown -R nginx:nginx /etc/nginx/ssl && chmod -R 755 /etc/nginx/ssl && \
+#     touch /var/run/nginx.pid && chown nginx:nginx /var/run/nginx.pid
+
+# # Add custom config and static assets
 # COPY nginx.conf /etc/nginx/nginx.conf
 # COPY static /usr/share/nginx/html/
 
-# # Create required directories with correct permissions
-# RUN mkdir -p /var/cache/nginx /var/run/nginx /var/log/nginx \
-#     && chown -R nginx:nginx /var/cache/nginx /var/run/nginx /var/log/nginx
+# # Document the port
+# EXPOSE 80
 
+# # Drop privileges
 # USER nginx
 
+# # Start NGINX
 # CMD ["nginx", "-g", "daemon off;"]
 
 
