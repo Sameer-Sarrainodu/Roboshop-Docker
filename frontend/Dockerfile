@@ -6,5 +6,4 @@ RUN rm -rf /etc/nginx/conf.d/default.conf
 
 ADD nginx.conf /etc/nginx/nginx.conf
 ADD static /usr/share/nginx/html/
-USER nginx
 CMD ["nginx", "-g", "daemon off;"]
