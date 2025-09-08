@@ -21,7 +21,9 @@ services:
     depends_on:
       - mongodb
   redis:
-    image: redis:7.0
+    # image: redis:7.0
+    image: redis:7.0-alpine
+
     container_name: redis
     volumes:
       - redis:/data
@@ -49,7 +51,9 @@ services:
       - mysql
       - cart
   rabbitmq:
-    image: rabbitmq:3
+    # image: rabbitmq:3
+    image: rabbitmq:3.13-management-alpine
+
     container_name: rabbitmq
     environment:
       RABBITMQ_DEFAULT_USER: "roboshop"
