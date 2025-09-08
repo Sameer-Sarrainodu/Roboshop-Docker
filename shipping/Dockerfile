@@ -2,17 +2,24 @@
 FROM maven AS builder
 WORKDIR /opt/server
 COPY pom.xml . 
-COPY src /opt/server/src
-RUN mvn clean package
+RUN mvn dependency:go-offline
+
+COPY src ./src
+RUN mvn clean package -DskipTests
 
 FROM eclipse-temurin:17-jre-alpine
 WORKDIR /opt/server
+
 RUN addgroup -S roboshop && \
     adduser -S -D -H -h /opt/server -s /sbin/nologin -G roboshop roboshop
+
 ENV CART_ENDPOINT=cart:8080 \
     DB_HOST=mysql
+
 COPY --from=builder /opt/server/target/shipping-*.jar /opt/server/shipping.jar
+
 USER roboshop
+
 CMD ["java","-jar","shipping.jar"]
 
 
