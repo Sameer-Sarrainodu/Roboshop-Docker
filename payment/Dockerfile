@@ -16,8 +16,13 @@ RUN addgroup -S roboshop && \
     adduser -S -D -H -h /opt/server -s /sbin/nologin -G roboshop roboshop
 
 
+
+
 USER roboshop
 COPY --from=builder /install /usr/local
+
+COPY *.py .
+COPY payment.ini .
 CMD ["uwsgi", "--ini", "payment.ini"]
 
 
