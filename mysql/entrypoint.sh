@@ -1,14 +1,16 @@
-#!/bin/sh
+#!/bin/bash
 
+# Check if secret file exists
 if [ -f /tmp/mysql_root_password.txt ]; then
-  PASSWORD=$(cat /tmp/mysql_root_password.txt)
-  export MYSQL_ROOT_PASSWORD=$PASSWORD
+    PASSWORD=$(cat /tmp/mysql_root_password.txt)
+    echo "Accessed root password"
+    export MYSQL_ROOT_PASSWORD="$PASSWORD"
+    # Cleanup after reading
+    rm -rf /tmp/mysql_root_password.txt
 else
-  echo "password file not found"
-  exit 1
+    echo "password file not found"
+    exit 1
 fi
 
+# Start MySQL
 exec mysqld
-export MYSQL_ROOT_PASSWORD="$PASSWORD"
-rm -rf /tmp/mysql_root_password.txt
-exec /entrypoint.sh mysqld
